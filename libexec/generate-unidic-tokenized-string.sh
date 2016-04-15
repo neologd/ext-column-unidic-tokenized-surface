@@ -35,11 +35,15 @@ echo "${ECHO_PREFIX} Start.."
 SEED_NAME_PREFIX=`echo ${SEED_DATA##*/} | cut -d $'.' -f 1,1`
 echo "${ECHO_PREFIX} ${SEED_NAME_PREFIX} is there"
 
+if [ -f $BASEDIR/../extension/${SEED_NAME_PREFIX}.tsv.xz ]; then
+    exit
+fi
+
 echo "${ECHO_PREFIX} Make key to join"
 cat ${SEED_DATA} | cut -d $',' -f 1,2 > ${TMP_SEED_SURFACE_POSID}
 
 echo "${ECHO_PREFIX} Get tokenizing result using UniDic"
-cat ${SEED_DATA} | cut -d $',' -f 1,1 | ${MECAB_COMMAND} > ${TMP_MECAB_RESULT}
+cat ${SEED_DATA} | cut -d $',' -f 1,1 | ${MECAB_COMMAND} | sed -e "s/ $//g" > ${TMP_MECAB_RESULT}
 
 echo "${ECHO_PREFIX} Merge keys and tokenizing results"
 paste ${TMP_SEED_SURFACE_POSID} ${TMP_MECAB_RESULT} > $BASEDIR/../extension/${SEED_NAME_PREFIX}.tsv
