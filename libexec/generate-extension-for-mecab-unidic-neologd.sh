@@ -24,7 +24,7 @@ ECHO_PREFIX="[${PROGRAM_NAME}] :"
 
 IPADIC_NEOLOGD_BUILD_DIR=$1;
 
-SEED_FILES=($(find ${IPADIC_NEOLOGD_BUILD_DIR} -name "neologd*.csv" -o -name "mecab-user-dict-seed*.csv"))
+SEED_FILES=($(find ${IPADIC_NEOLOGD_BUILD_DIR} -name "*.csv"))
 
 echo "${ECHO_PREFIX} Start.."
 
