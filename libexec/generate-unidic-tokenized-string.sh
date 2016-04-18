@@ -32,7 +32,9 @@ SEED_DATA=$1
 
 echo "${ECHO_PREFIX} Start.."
 
-SEED_NAME_PREFIX=`echo ${SEED_DATA##*/} | cut -d $'.' -f 1,1`
+SEED_NAME_PREFIX=${SEED_DATA##*/}
+SEED_NAME_PREFIX=${SEED_NAME_PREFIX%%\.csv}
+SEED_NAME_PREFIX=${SEED_NAME_PREFIX%%\.201[0-9]*}
 echo "${ECHO_PREFIX} ${SEED_NAME_PREFIX} is there"
 
 if [ -f $BASEDIR/../extension/${SEED_NAME_PREFIX}.tsv.xz ]; then
